@@ -15,7 +15,6 @@ export class TextGame{
             this.content[i].push("\n")
         }
         parent.appendChild(this.screen)
-        this.set_value(new Vector(5,5), "2")
         this.fill("0")
         this.update_screen()
     }
@@ -51,7 +50,7 @@ export class TextGame{
 
     // Input should only be one character!
     set_value(pos, char){
-        this.content [pos.y] [ pos.x] = char
+        this.content [ pos.y ] [ pos.x ] = char
     }
 }
 

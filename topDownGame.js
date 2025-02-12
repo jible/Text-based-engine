@@ -49,7 +49,7 @@ class Map{
 class GridObj{
     constructor(map, pos, char){
         if (map.get(pos).char){
-            console.error("cant add player to populated tile")
+            console.error("cant add object to populated tile")
         }
         this.map = map
         this.pos = pos
@@ -58,7 +58,7 @@ class GridObj{
 
     set(pos){
         if (map.get(pos).char){
-            console.error("cant add player to populated tile")
+            console.error("cant move object to populated tile")
         }
         this.map.set_obj(this.pos, null)
         this.pos = pos
@@ -67,7 +67,7 @@ class GridObj{
 }
 
 
-class TopDownGame{
+export class TopDownGame{
     constructor(parent, screenWidth, screenHeight, worldWidth, worldHeight){
         // Centering camera at center
         this.cameraPos = new Vector(0,0)
@@ -79,28 +79,43 @@ class TopDownGame{
 
     render(){
         let offset = new Vector(Math.floor(this.screenSize.x /2), Math.floor(this.screenSize.y /2) )
+        console.log(this.cameraPos)
         let topLeft = this.cameraPos.sub(offset)
-        for ( let i = topLeft.y; i < this.screenSize.y; i++ ){
-            for ( let j = topLeft.x; j < this.screenSize.x; j++ ){
+        for ( let i = 0; i < this.screenSize.y; i++ ){
+            for ( let j =0; j < this.screenSize.x; j++ ){
                 let mapPos = new Vector ( topLeft.x + j, topLeft.y  + i)
                 let camPos = new Vector (j , i)
                 let currentTile = this.map.get(mapPos)
-                let value = (currentTile.obj && currentTile.obj.char) || currentTile.floor || 0
-                this.engine.set( camPos, value )
+                let value 
+                if ( currentTile == null){
+                    value = ' '
+
+                } else if (currentTile.object) {
+                    value = currentTile.object.char
+                } else {
+                    value = currentTile.floor || ' '
+                    
+                }
+                this.engine.set_value( camPos, value )
             }
 
         }
-
+        this.engine.update_screen()
     }
-    configureWithMap(tileMap){
+
+
+    configureWithMap(tilemap){
         for (let i = 0; i < this.worldSize.y; i ++){
             for (let j = 0; j < this.worldSize.x; j ++){
-                
+                let pos = new Vector (j, i)
+                this.map.set_floor(pos, tilemap[i][j])
             }
         }
     }
-}
-
-class TopDownWorld{
-    
+    moveCamerav(pos){
+        this.cameraPos = this.cameraPos.sum(pos)
+        this.render()
+        this.engine.update_screen()
+        console.log('ehehe')
+    }
 }
