@@ -1,0 +1,18 @@
+body{
+    background-color: rgb(36, 100, 138);
+}
+
+#game-holder{
+    display:  grid;
+    place-items: center;
+}
+
+#game-screen{
+    background-color: white;
+    color: brown;
+    text-align:  center;
+    width:  fit-content;
+    line-height: .8;
+    font-size: 2rem;
+
+}
