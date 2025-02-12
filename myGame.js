@@ -1,6 +1,6 @@
 import { TextGame } from "./enginePackage/textEngine.js"
 const gameHolder = document.getElementById("game-holder")
-let height = 10
-let width = 10
+let height = 30
+let width = 40
 
-const game = new TextGame(gameHolder, height, width)
+const game = new TextGame(gameHolder, width, height)

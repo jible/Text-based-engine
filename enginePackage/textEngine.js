@@ -2,8 +2,8 @@ import { Vector } from "./vector.js"
 
 export class TextGame{
     // Give a reference to the parent that will house the game space
-    constructor(parent, height, width){
-        this.size = new Vector(height, width)
+    constructor(parent, width, height){
+        this.size = new Vector(width, height)
         this.screen = document.createElement("pre")
         this.screen.id = "game-screen"
         this.content = []
@@ -20,6 +20,14 @@ export class TextGame{
         this.update_screen()
     }
 
+    set_background_color(color){
+        this.screen.style.backgroundColor = color
+    }
+
+    set_text_color(color){
+        this.screen.style.color = color
+    }
+
     fill(char){
         for (let i = 0; i < this.size.y; i ++){
             for (let j = 0; j < this.size.x; j++){
@@ -30,7 +38,7 @@ export class TextGame{
 
     update_screen(){
         let rows = []
-        for (let i = 0; i < this.size.x; i ++){
+        for (let i = 0; i < this.size.y; i ++){
             rows.push( this.content [i].join('') )
         }
         this.screen.textContent = rows.join('')
