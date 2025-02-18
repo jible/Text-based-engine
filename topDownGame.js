@@ -46,7 +46,7 @@ class Map{
     }
 }
 
-class GridObj{
+export class GridObj{
     constructor(map, pos, char){
         if (map.get(pos).char){
             console.error("cant add object to populated tile")
@@ -54,15 +54,20 @@ class GridObj{
         this.map = map
         this.pos = pos
         this.char = char
+        this.map.set_obj(this.pos, this)
     }
 
     set(pos){
-        if (map.get(pos).char){
+        if ( this.map.get(pos) == null || this.map.get(pos).object){
             console.error("cant move object to populated tile")
         }
         this.map.set_obj(this.pos, null)
         this.pos = pos
         this.map.set_obj(this.pos, this)
+    }
+    
+    movev(dir){
+        this.set(dir.sum(this.pos))
     }
 }
 
